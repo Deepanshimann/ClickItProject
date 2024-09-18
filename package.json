@@ -1,4 +1,13 @@
+
 {
+  "name": "clickit-project",
+  "version": "1.0.0",
+  "description": "ClickIt project - eCommerce application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
@@ -18,5 +27,12 @@
     "passport-google-oauth20": "^2.0.0",
     "stripe": "^16.11.0",
     "uuid": "^10.0.0"
-  }
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "author": "Deepanshi Mann",
+  "license": "ISC"
 }
+

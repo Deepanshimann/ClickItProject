@@ -7,7 +7,23 @@
     <title>Leaflet Route Map with OSM Geocoding and Real-Time Location</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+
+body {
+    padding-top: 70px; /* Adjust this value based on the height of your nav */
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999; /* Ensure the nav bar is above other elements */
+    background-color: #fff; /* Ensure the background color is set for the navbar */
+}
+
         #map {
             height: 500px;
             width: 100%;
@@ -40,13 +56,13 @@
 </head>
 
 <body>
-
+    <%- include('./nav.ejs'); %>
     <div id="inputs">
-        <form method="post" action="/order/address/<%= orderid %>">
-            <label for="end">Destination:</label>
-            <input type="text" name="address" id="end" placeholder="Enter destination">
+        <form method="post" action="/cart/address">
+            <label class="font-bold text-2xl" for="end">Destination:</label>
+            <input class="font-medium text-2xl" type="text" name="address" id="end" placeholder="Enter destination">
             <div id="suggestions" class="autocomplete-suggestions"></div>
-            <input type="submit" value="get order">
+            <input class="bg-green-600 text-white px-4 py-2 mt-2 rounded-lg" type="submit" value="Select Address">
         </form>
     </div>
 
@@ -54,14 +70,15 @@
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <!-- Provide logitude and latitude -->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script> 
 
     <script>
         let startLatLng, endLatLng;
         let userMarker;
 
         // Initialize the map
-        const map = L.map('map').setView([20.5937, 78.9629], 5); // Centered on India as an example
+        const map = L.map('map').setView([56.4620, -2.9707], 13); // Centered on Dundee
 
         // Load and display the tile layer on the map
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

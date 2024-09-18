@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
-
+require('mongoose-double')(mongoose);
+var SchemaTypes = mongoose.Schema.Types;
 const ProductSchema = mongoose.Schema({
     name: {
         type: String,
@@ -10,19 +11,19 @@ const ProductSchema = mongoose.Schema({
         maxlength: 50,
     },
     price: {
-        type: Number,
+        type:SchemaTypes.Double,
         required: true,
         min: 0,
     },
     category: {
-        type: String,
+        type: String, // Changed back to String
         required: true,
         trim: true,
         minlength: 2,
         maxlength: 30,
     },
     stock: {
-        type: Boolean,
+        type: Number,
         required: true,
     },
     description: {
@@ -31,19 +32,18 @@ const ProductSchema = mongoose.Schema({
         maxlength: 500,
     },
     image: {
-        type: String,
-        trim: true,
+        type: Buffer,
     },
 }, { timestamps: true });
 
 const validateProduct = (data) => {
     const schema = Joi.object({
         name: Joi.string().min(2).max(50).required().trim(),
-        price: Joi.number().min(0).required(),
+        price: Joi.number().min(0).precision(2).required(),
         category: Joi.string().min(2).max(30).required().trim(),
-        stock: Joi.boolean().required(),
+        stock: Joi.number().required(),
         description: Joi.string().max(500).trim(),
-        image: Joi.string().trim(),
+        image: Joi.any(),
     });
 
     return schema.validate(data);

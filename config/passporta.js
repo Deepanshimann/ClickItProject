@@ -15,10 +15,11 @@ if(!user){
         email:profile.emails[0].value,
     });
     await user.save();
-    cb(null,user);
 }
+return cb(null,user);
+
   }catch(err){
-cb(err,false);
+ return cb(err,false);
   }
   }
 ));
@@ -30,6 +31,6 @@ passport.serializeUser(function(user,cb){
 //we can disclose data coz of this
 passport.deserializeUser(async function (id,cb){
     let user=await userModel.findOne({_id:id});
-    cb(null,user);
+    return cb(null,user);
 })
 module.exports=passport;

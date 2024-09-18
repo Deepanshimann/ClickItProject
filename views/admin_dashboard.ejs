@@ -3,11 +3,33 @@
     <body class="bg-gray-100">
         <div class="flex flex-col min-h-screen">
             <!-- Header -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <header class="bg-white  shadow">
+                <div class="max-w-7xl  mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
                     <h1 class="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+                    <form action="/admin/logout" method="GET">
+                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
+                            Logout
+                        </button>
+                    </form>
                 </div>
             </header>
+
+            <nav class="m-8 bg-white  rounded-lg shadow p-6">
+                <div class="flex gap-6">
+                     <!--Go To Admin Products Button -->
+                    <div>
+                        <a href="/admin/products" class="w-full bg-gray-200 text-black font-bold py-3 px-4 rounded hover:bg-gray-400">
+                            Go to Admin Products
+                        </a>
+                    </div>  
+                    <div>
+                        <a href="/users/login" class="w-full bg-gray-200 text-black font-bold py-3 px-4 rounded hover:bg-gray-400">
+                            Go to Customer Products
+                        </a>
+                    </div>  
+                </div>
+            </nav>
+
 
             <!-- Main content -->
             <main class="flex-1 overflow-y-auto">
@@ -34,6 +56,21 @@
                             </div>
                         </div>
                     </div>
+                    <% if (query.error || query.message) { %>
+                        <div id="message-box" style="background-color: <%= query.error ? 'red' : 'green' %>; color: white; padding: 10px; margin-bottom: 20px;">
+                            <%= query.error ? query.error : query.message %>
+                        </div>
+                        <script>
+                            setTimeout(function() {
+                                var messageBox = document.getElementById('message-box');
+                                if (messageBox) {
+                                    messageBox.style.display = 'none';
+                                }
+                            }, 2000); 
+                        </script>
+                        <% } %>
+                        
+                        
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <!-- Create/Update Product Form -->
                         <div class="bg-white shadow rounded-lg p-6">
@@ -46,12 +83,12 @@
                                         class="w-full p-2 border border-gray-300 rounded mt-2">
                                 </div>
                                 <div class="mt-2">
-                                    <input type="number" name="price" placeholder="Product Price" required
+                                    <input type="number" name="price" placeholder="Product Price" required min="0" step="0.01"
                                         class="w-full p-2 border border-gray-300 rounded">
                                 </div>
                                 <div class="mt-2">
-                                    <input type="text" name="category" placeholder="Category" required
-                                        class="w-full p-2 border border-gray-300 rounded">
+                                    <input type="text" name="category" placeholder="Category Name" required
+                                    class="w-full p-2 border border-gray-300 rounded">
                                 </div>
                                 <div class="mt-2">
                                     <textarea name="description" placeholder="Product Description" rows="4"
@@ -88,12 +125,13 @@
                                 </div>
                             </form>
                         </div>
-
+                    
+                        
                         <!-- Create/Update Category Form -->
                         <div class="bg-white shadow rounded-lg p-6">
                             <h2 class="text-2xl font-semibold text-gray-800">Manage Categories</h2>
                             <form autocomplete="off" class="mt-4" action="/categories/create" method="POST">
-                                <h3 class="text-lg font-medium text-gray-700">Create or Update Category</h3>
+                                <h3 class="text-lg font-medium text-gray-700">Create Category</h3>
                                 <div class="mt-2">
                                     <input type="text" name="name" placeholder="Category Name" required
                                         class="w-full p-2 border border-gray-300 rounded">
@@ -105,13 +143,45 @@
                                     </button>
                                 </div>
                             </form>
+                            
+                           
+
+                             <!-- Update Category -->
+                            <form class="mt-4" action="/categories/update" method="POST">
+                                <h1 class="text-lg font-medium text-gray-700 mb-4 font-bold">Update Category</h1>
+                                <div class="flex justify-between">
+                                <input type="text" class="text-lg font-medium text-gray-700" name="currentName" placeholder="Current Category Name" required>
+                                <input type="text" class="text-lg font-medium text-gray-700" name="newName" placeholder="New Category Name" required>
+                            </div>
+                                <div class="mt-4">
+                                <button type="submit"
+                                class="w-full bg-black text-white py-2 px-4 rounded hover:bg-black">
+                                Update Category
+                            </button>
+                        </div>
+                            </form>  
                         </div>
                     </div>
-
-
+  
                 </div>
             </main>
         </div>
     </body>
 
     <%- include('./partials/footer'); %>
+
+    <script>
+        document.getElementById('parentCategory').addEventListener('change', function() {
+            fetch(`/categories/subcategories?parentId=${this.value}`)
+                .then(response => response.json())
+                .then(data => {
+                    const subcategorySelect = document.getElementById('subCategory');
+                    subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+                    data.forEach(sub => {
+                        subcategorySelect.innerHTML += `<option value="${sub._id}">${sub.name}</option>`;
+                    });
+                })
+                .catch(error => console.error('Error loading subcategories:', error));
+        });
+    </script>
+    

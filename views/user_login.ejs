@@ -1,20 +1,19 @@
 <%- include('./partials/header'); %>
 
-    <body class="h-screen w-screen flex items-center justify-center bg-gray-100">
-
-        <div class="relative h-full w-full">
-            <!-- Full-screen Image -->
-            <img src="/images/blinkit.jpg" alt="Background Image" class="object-cover w-full h-full">
-
-            <!-- Button at the Bottom -->
-            <div class="absolute bottom-0 w-full flex justify-center mb-8">
+<body class="h-screen w-screen flex items-center justify-center bg-gray-100">
+    <div class="relative h-full bg-yellow-200 flex justify-center items-center w-full">
+        <div class="text-center">
+            <h1 class="text-8xl font-bold">Welcome to Click<span class="text-[#15803D]">It</span> </h1>
+            <h1 class="text-4xl text-center">Your last minute app!</h1>
+            <!-- Button Centered -->
+            <div class="flex justify-center mt-6">
                 <a href="/auth/google"
-                    class="bg-black text-white font-semibold py-3 px-6 rounded-lg hover:bg-black transition duration-300">
+                   class="bg-black text-white font-semibold py-3 px-6 rounded-lg hover:bg-black transition duration-300">
                     Continue with Google
                 </a>
             </div>
         </div>
+    </div>
+</body>
 
-    </body>
-
-    <%- include('./partials/footer'); %>
+<%- include('./partials/footer'); %>

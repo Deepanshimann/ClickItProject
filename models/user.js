@@ -25,7 +25,7 @@ const AddressSchema = mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        minlength: 7,
+        minlength: 5,
         maxlength: 225,
     },
 });
@@ -33,8 +33,7 @@ const AddressSchema = mongoose.Schema({
 const userSchema = mongoose.Schema(
     {
         name: {
-            type: String,
-            required: true,
+            type: String,         
             trim: true,
             minlength: 2,
             maxlength: 20,
@@ -47,15 +46,13 @@ const userSchema = mongoose.Schema(
             match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Basic email validation
         },
         password: {
-            type: String,
-            required: true,
+            type: String,         
             minlength: 6,
         },
         phone: {
-            type: String, // Changed to String to accommodate validation pattern
-            required: true,
+            type: String, // Changed to String to accommodate validation pattern 
             match: /^[0-9]{10}$/, // Validate 10-digit phone number
-            unique: true,
+           
         },
         addresses: {
             type: [AddressSchema],
@@ -75,16 +72,16 @@ const validateUser = (data) => {
         state: Joi.string().min(2).max(20).required().trim(),
         zip: Joi.string().required().trim(),
         city: Joi.string().min(2).max(20).required().trim(),
-        address: Joi.string().min(7).max(225).required().trim(),
+        address: Joi.string().min(5).max(225).required().trim(),
     });
 
     const schema = Joi.object({
-        name: Joi.string().min(2).max(20).required().trim(),
+        name: Joi.string().min(2).max(20).trim(),
         email: Joi.string().email().required().trim(),
-        password: Joi.string().min(6).required(),
+        password: Joi.string().min(6),
         phone: Joi.string()
             .pattern(/^[0-9]{10}$/) // Validate 10-digit phone number
-            .required(),
+            ,
         addresses: Joi.array().items(addressSchema).max(5).required(),
     });
 
@@ -92,6 +89,6 @@ const validateUser = (data) => {
 };
 
 module.exports = {
-    userModel: mongoose.model("User", userSchema),
+    userModel: mongoose.model("user", userSchema),
     validateUser,
 };

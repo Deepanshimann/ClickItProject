@@ -24,7 +24,7 @@ const AdminSchema = mongoose.Schema({
     role: {
         type: String,
         required: true,
-        enum: ["superadmin", "admin"], // Example roles
+        enum: ["admin"], // Example roles
         trim: true,
     },
 }, { timestamps: true });
@@ -34,7 +34,7 @@ const validateAdmin = (data) => {
         name: Joi.string().min(2).max(50).required().trim(),
         email: Joi.string().email().required().trim(),
         password: Joi.string().min(6).required(),
-        role: Joi.string().valid("superadmin", "admin").required().trim(),
+        role: Joi.string().valid( "admin").required().trim(),
     });
 
     return schema.validate(data);

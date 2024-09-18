@@ -9,11 +9,12 @@ scope:["profile","email"],
 );
  router.get("/google/callback",
     passport.authenticate("google",{
-        successRedirect:"/profile",
+        successRedirect:"/products",
         failureRedirect:"/",
     }),
-    function(req,res){}
  );
+
+
  //written in passport
  router.get("/logout",function(req,res){
     req.logout(function(err){

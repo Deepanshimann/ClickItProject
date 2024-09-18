@@ -2,41 +2,38 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const PaymentSchema = mongoose.Schema({
-    order: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "order",  // Reference to the "order" model
+    orderId: {
+        type: String,
         required: true,
+    },
+    paymentId: {
+        type: String,
+    },
+    signature: {
+        type: String,
     },
     amount: {
         type: Number,
         required: true,
-        min: 0,
     },
-    method: {
+    currency: {
         type: String,
         required: true,
-        trim: true,
     },
     status: {
         type: String,
-        required: true,
-        trim: true,
-    },
-    transactionID: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
+        default: 'pending',
     },
 }, { timestamps: true });
 
 const validatePayment = (data) => {
     const schema = Joi.object({
-        order: Joi.string().required(),  // Expecting a valid ObjectId string
-        amount: Joi.number().min(0).required(),
-        method: Joi.string().required(),
-        status: Joi.string().required(),
-        transactionID: Joi.string().required().trim(),
+        orderId: Joi.string().required(),          // Matches Mongoose 'orderId'
+        paymentId: Joi.string().optional(),        // Matches Mongoose 'paymentId' (optional)
+        signature: Joi.string().optional(),        // Matches Mongoose 'signature' (optional)
+        amount: Joi.number().min(0).required(),    // Matches Mongoose 'amount'
+        currency: Joi.string().required(),         // Matches Mongoose 'currency'
+        status: Joi.string().valid('pending', 'completed', 'failed').default('pending'), // Matches Mongoose 'status'
     });
 
     return schema.validate(data);

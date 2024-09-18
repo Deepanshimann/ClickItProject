@@ -22,7 +22,7 @@ const DeliverySchema = mongoose.Schema({
     },
     trackingUrl: {
         type: String,
-        trim: true,
+        
     },
 
     estimatedDeliveryTime: {
@@ -37,7 +37,7 @@ const validateDelivery = (data) => {
         order: Joi.string().required(),  // Expecting a valid ObjectId string
         deliveryBoy: Joi.string().min(2).max(50).required().trim(),
         status: Joi.string().valid("Pending", "In Transit", "Delivered", "Cancelled").required(),
-        trackingUrl: Joi.string().uri().trim(), // Optional field
+        trackingUrl: Joi.string().uri(), // Optional field
         estimatedDeliveryTime: Joi.number().min(0).required(),
     });
 

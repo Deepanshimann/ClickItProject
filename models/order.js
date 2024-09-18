@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const OrderSchema = mongoose.Schema({
+    orderId:{
+type:String,
+required:true,
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
@@ -17,11 +21,10 @@ const OrderSchema = mongoose.Schema({
     totalPrice: {
         type: Number,
         required: true,
-        min: 0,
+        min: 1,
     },
     address: {
         type: String,
-        required: true,
         trim: true,
         minlength: 5,
         maxlength: 255,
@@ -48,7 +51,7 @@ const validateOrder = (data) => {
     const schema = Joi.object({
         user: Joi.string().required(),  // Expecting a valid ObjectId string
         products: Joi.array().items(Joi.string().required()).required(),  // Array of ObjectId strings
-        totalPrice: Joi.number().min(0).required(),
+        totalPrice: Joi.number().min(1).required(),
         address: Joi.string().min(5).max(255).required().trim(),
         status: Joi.string().valid("Pending", "Shipped", "Delivered", "Cancelled").required(),
         payment: Joi.string().required(),  // Expecting a valid ObjectId string

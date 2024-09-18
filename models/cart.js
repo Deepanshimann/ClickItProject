@@ -11,7 +11,7 @@ const CartSchema = mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "product",
-            required: true,
+
         },
     ],
     totalPrice: {
@@ -19,6 +19,7 @@ const CartSchema = mongoose.Schema({
         required: true,
         min: 0,
     },
+    address: String , 
 }, { timestamps: true });
 
 const validateCart = (data) => {

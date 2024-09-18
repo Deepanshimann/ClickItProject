@@ -1,0 +1,110 @@
+<%- include('./partials/header'); %>
+<%- include('./nav.ejs'); %>
+<style>
+  body {
+    padding-bottom: 100px; /* Add padding so footer doesn't overlap */
+  }
+
+  .cart-footer {
+    background-color: #fef08a; /* Ensure the background is visible */
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    /* Ensure the footer appears above other elements */
+  }
+</style>
+
+
+<div class=" p-4">
+  <h1 class="text-2xl font-semibold pt-24  mb-6">Search Results for "<%= searchTerm %>"</h1>
+
+  <% if (searchResults.length > 0) { %>
+    <div class="grid grid-cols-5 gap-4 p-6">
+      <% searchResults.forEach(function(product) { %>
+        <div class="flex w-full flex-col items-center border border-gray-200 rounded-lg p-4">
+          <img src="data:image/jpg;base64, <%= product.image.toString('base64') %>" alt="<%= product.name %>" class="h-24 rounded mb-2"/>
+          <p class="text-sm text-center mt-2 h-12 overflow-hidden"><%= product.name %></p>
+          <p class="font-bold">&pound;<%= product.price %></p>
+          <a class="px-4 text-white text-sm rounded mt-2 cursor-pointer inline-block py-1 bg-green-700 add-to-cart-link"
+            data-product-id="<%= product._id %>">ADD</a>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <p>No products found for "<%= searchTerm %>". Please try another search term.</p>
+  <% } %>
+
+  <!-- Random Products Section for Suggestions -->
+  <h2 class="text-2xl font-semibold mb-6  mt-16">You may also like</h2>
+  <div class="grid grid-cols-4 gap-4">
+    <% rnproducts.forEach(function(product) { %>
+      <div class="flex w-full flex-col items-center border border-gray-200 rounded-lg p-4">
+        <img src="data:image/jpg;base64, <%= product.image.toString('base64') %>" alt="<%= product.name %>" class="h-24 rounded mb-2"/>
+        <p class="text-sm text-center mt-2 h-12 overflow-hidden"><%= product.name %></p>
+        <p class="font-bold">&pound;<%= product.price %></p>
+        <a class="px-4 text-white text-sm rounded my-2 cursor-pointer inline-block py-1 bg-green-700 add-to-cart-link"
+          data-product-id="<%= product._id %>">ADD</a>
+      </div>
+    <% }); %>
+  </div>
+</div>
+
+<!-- Cart Footer for consistency -->
+<div class="cart-footer">
+<div class="bg-yellow-100 px-8  rounded-lg shadow fixed bottom-0 inset-x-0">
+  <div class="flex justify-between items-center mt-2">
+    <div id="cart-count" class="text-xl font-bold">
+      Check Your Cart
+    </div>
+    <a href="/cart"
+       class="flex items-center justify-center px-20 py-3 bg-green-700 text-white rounded-lg"><span
+         class="text-lg">Next</span><i class="text-2xl ri-arrow-right-s-fill"></i></a>
+  </div>
+</div>
+</div>
+
+<!-- Cart notification (hidden by default) -->
+<div id="cart-notification" style="display: none;" class="fixed bottom-4 text-2xl font-bold left-1/2 transform -translate-x-1/2 bg-yellow-500 text-white p-4 z-100 rounded">
+  Item added to the cart! <i class="ri-shopping-basket-line"></i>
+</div>
+
+<%- include('./partials/footer'); %>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+  document.querySelectorAll('.add-to-cart-link').forEach(link => {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();  // Prevent the default anchor behavior (navigation)
+      const productId = this.getAttribute('data-product-id');  // Get product ID from data attribute
+
+      // Send an AJAX request to add the item to the cart
+      axios.get(`/cart/add/${productId}`)
+        .then(response => {
+          // Show the notification div
+          const notification = document.getElementById('cart-notification');
+          if (notification) {
+            notification.style.display = 'block';
+            // Hide the notification after 2 seconds
+            setTimeout(() => {
+              notification.style.display = 'none';
+            }, 2000);
+          }
+
+          // Update the cart count (only if the cart-count element exists)
+          const cartCountElement = document.getElementById('cart-count');
+          if (cartCountElement && response.data.cartCount) {
+            cartCountElement.textContent = `${response.data.cartCount} Items in your Cart`;
+          } else {
+            console.error('Cart count element not found or no cart count provided');
+          }
+        })
+        .catch(error => {
+          console.error('Error adding item to cart:', error);
+        });
+    });
+  });
+</script>

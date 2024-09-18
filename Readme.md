@@ -70,3 +70,4 @@ Delivery Model Fields:
 * trackingUrl
 * estimateDeliveryTime
 
+i want when user open app he is on /products route where he can see all his products when he click on add to cart he should be asked to login first or when he try to check out at that time .... add necessary navbar with logout profile if possible change design

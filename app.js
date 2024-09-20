@@ -1,3 +1,4 @@
+require("dotenv").config(); // Load environment variables
 const express = require("express");
 const app = express();
 const indexRouter = require("./routes/index");
@@ -13,7 +14,6 @@ const orderRouter=require("./routes/order")
 const expressSession=require("express-session");
 const path=require("path");
 const cookieParser = require("cookie-parser");
-require("dotenv").config(); // Load environment variables
 require("./config/mongoose"); // Connect to MongoDB
 require("./config/passporta");
 

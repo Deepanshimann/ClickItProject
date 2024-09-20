@@ -7,7 +7,7 @@ async function validateAdmin(req,res,next){
     let token=req.cookies.token;
   if(!token) return res.send("You need to login first!");
   
-    let data= jwt.verify(token,process.env.JWT_KEY);
+    let data= jwt.verify(token,"asdfghjkl12345678");
     req.user=data;
     next();
    }catch(err){

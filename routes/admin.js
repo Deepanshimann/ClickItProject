@@ -3,7 +3,7 @@ const router=express.Router();
 const {adminModel}=require("../models/admin");
 const {productModel}=require("../models/product")
 const {categoryModel}=require("../models/category")
-const bcrypt=require("bcrypt");
+const bcrypt=require("bcryptjs");
 const jwt =require("jsonwebtoken");
 const {validateAdmin} = require("../middlewares/admin");
 require("dotenv").config();

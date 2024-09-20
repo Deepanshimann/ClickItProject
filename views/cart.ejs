@@ -193,26 +193,15 @@
                 </p>
             </div>
 
-            <% if (cart && cart.address) { %>
-                <div class="bg-white p-4 rounded-lg shadow mb-4">
-                    <h2 class="text-lg font-semibold">Delivery Address</h2>
-                    <p class="text-sm"><%= cart.address %></p>
-                </div>
-            <% } else { %>
-                <p class="text-sm">No address selected yet.</p>
-            <% } %>
-            
-
-         <!-- This div contains the Stripe Elements card -->
 
 
 <!-- Footer with the Place Order Button -->
 <div class="footer">
     <div class="flex justify-between items-center">
         <div>
-            <p class="text-sm">Add Address</p>
+            <p class="text-sm">Add Address? Click on Map!</p>
     <a href="/map">
-        <p class="text-xs text-gray-500 cursor-pointer">Map</p>
+        <p class="text-lg font-bold text-green-600 cursor-pointer">Map</p>
     </a>
         </div>
         <div>

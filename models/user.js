@@ -49,11 +49,6 @@ const userSchema = mongoose.Schema(
             type: String,         
             minlength: 6,
         },
-        phone: {
-            type: String, // Changed to String to accommodate validation pattern 
-            match: /^[0-9]{10}$/, // Validate 10-digit phone number
-           
-        },
         addresses: {
             type: [AddressSchema],
             validate: [arrayLimit, '{PATH} exceeds the limit of 5 addresses'],
@@ -79,9 +74,6 @@ const validateUser = (data) => {
         name: Joi.string().min(2).max(20).trim(),
         email: Joi.string().email().required().trim(),
         password: Joi.string().min(6),
-        phone: Joi.string()
-            .pattern(/^[0-9]{10}$/) // Validate 10-digit phone number
-            ,
         addresses: Joi.array().items(addressSchema).max(5).required(),
     });
 

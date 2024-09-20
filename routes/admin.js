@@ -86,9 +86,13 @@ router.get("/products",validateAdmin,async function(req,res){
         return acc;
       },{});
       
-      console.log(result);
+      console.log(resultObject); 
       
-    res.render("admin_products",{products:resultObject})
+      if (Object.keys(resultObject).length === 0) {
+        res.send("No products available");  // Simple error handling if no products
+    } else {
+        res.render("admin_products", { products: resultObject });
+    }
 })
 
 //Logout Admin Panel

@@ -16,7 +16,7 @@ const ProductSchema = mongoose.Schema({
         min: 0,
     },
     category: {
-        type: String, // Changed back to String
+        type: String, 
         required: true,
         trim: true,
         minlength: 2,

@@ -14,7 +14,7 @@ router.get("/map/", function(req,res){
         userLoggedIn,  // Pass the userLoggedIn flag to the view
         orderid:"req.params.orderid"  // Add any other data you need, like orderid
     });
-    // res.render("map",{orderid:req.params.orderid});
+    
 });
 
 module.exports=router;

@@ -32,7 +32,7 @@ required:true,
     status: {
         type: String,
         required: true,
-        enum: ["Pending", "Shipped", "Delivered", "Cancelled"], // Example statuses
+        enum: ["Pending", "Shipped", "Delivered", "Cancelled"],
         trim: true,
     },
     payment: {
@@ -49,13 +49,13 @@ required:true,
 
 const validateOrder = (data) => {
     const schema = Joi.object({
-        user: Joi.string().required(),  // Expecting a valid ObjectId string
-        products: Joi.array().items(Joi.string().required()).required(),  // Array of ObjectId strings
+        user: Joi.string().required(), 
+        products: Joi.array().items(Joi.string().required()).required(),  
         totalPrice: Joi.number().min(1).required(),
         address: Joi.string().min(5).max(255).required().trim(),
         status: Joi.string().valid("Pending", "Shipped", "Delivered", "Cancelled").required(),
-        payment: Joi.string().required(),  // Expecting a valid ObjectId string
-        delivery: Joi.string().required(),  // Expecting a valid ObjectId string
+        payment: Joi.string().required(),  
+        delivery: Joi.string().required(), 
     });
 
     return schema.validate(data);

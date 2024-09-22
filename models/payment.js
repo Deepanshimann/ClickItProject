@@ -29,8 +29,8 @@ const PaymentSchema = mongoose.Schema({
 const validatePayment = (data) => {
     const schema = Joi.object({
         orderId: Joi.string().required(),          // Matches Mongoose 'orderId'
-        paymentId: Joi.string().optional(),        // Matches Mongoose 'paymentId' (optional)
-        signature: Joi.string().optional(),        // Matches Mongoose 'signature' (optional)
+        paymentId: Joi.string().optional(),        // Matches Mongoose 'paymentId' 
+        signature: Joi.string().optional(),        // Matches Mongoose 'signature' 
         amount: Joi.number().min(0).required(),    // Matches Mongoose 'amount'
         currency: Joi.string().required(),         // Matches Mongoose 'currency'
         status: Joi.string().valid('pending', 'completed', 'failed').default('pending'), // Matches Mongoose 'status'

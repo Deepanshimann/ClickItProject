@@ -25,7 +25,7 @@ router.get("/", async function (req, res) {
         $project: {
           _id: 0,
           category: "$_id",
-          products: { $slice: ["$products", 10] }, // Limit to 10 products per category
+          products: { $slice: ["$products", 10] }, //  10 products per category
         },
       },
     ]);

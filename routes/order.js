@@ -49,10 +49,6 @@ router.get('/success/:paymentIntentId', async (req, res) => {
         // Retrieve the payment details from Stripe using the payment intent ID
         const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
   
-        // Here you can also retrieve any related order information from your database, if necessary
-        // Assuming you have an Order model:
-        // const order = await OrderModel.findOne({ paymentIntentId: paymentIntentId });
-  
         // Render the success page and pass the payment and order details
         res.render('orderSuccess', { payment: paymentIntent ,
             userLoggedIn: req.isAuthenticated() 

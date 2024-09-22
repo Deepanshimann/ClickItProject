@@ -17,7 +17,7 @@ const DeliverySchema = mongoose.Schema({
     status: {
         type: String,
         required: true,
-        enum: ["Pending", "In Transit", "Delivered", "Cancelled"], // Example statuses
+        enum: ["Pending", "In Transit", "Delivered", "Cancelled"], 
         trim: true,
     },
     trackingUrl: {
@@ -28,16 +28,16 @@ const DeliverySchema = mongoose.Schema({
     estimatedDeliveryTime: {
         type: Number,
         required: true,
-        min: 0, // Time in hours or minutes, depending on your needs
+        min: 0, 
     },
 }, { timestamps: true });
 
 const validateDelivery = (data) => {
     const schema = Joi.object({
-        order: Joi.string().required(),  // Expecting a valid ObjectId string
+        order: Joi.string().required(),  
         deliveryBoy: Joi.string().min(2).max(50).required().trim(),
         status: Joi.string().valid("Pending", "In Transit", "Delivered", "Cancelled").required(),
-        trackingUrl: Joi.string().uri(), // Optional field
+        trackingUrl: Joi.string().uri(), 
         estimatedDeliveryTime: Joi.number().min(0).required(),
     });
 

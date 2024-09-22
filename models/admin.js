@@ -14,7 +14,7 @@ const AdminSchema = mongoose.Schema({
         required: true,
         unique: true,
         trim: true,
-        match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Basic email validation
+        match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // email validation
     },
     password: {
         type: String,
@@ -24,7 +24,7 @@ const AdminSchema = mongoose.Schema({
     role: {
         type: String,
         required: true,
-        enum: ["admin"], // Example roles
+        enum: ["admin"],
         trim: true,
     },
 }, { timestamps: true });

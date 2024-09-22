@@ -12,6 +12,7 @@ const cartRouter=require("./routes/cart")
 const paymentRouter=require("./routes/payement")
 const orderRouter=require("./routes/order")
 const expressSession=require("express-session");
+const MongoStore = require('connect-mongo'); 
 const path=require("path");
 const cookieParser = require("cookie-parser");
 require("./config/mongoose"); // Connect to MongoDB
@@ -26,10 +27,13 @@ app.use(
     expressSession({
     resave:false,
     saveUninitialized:false,
-    secret: process.env.SESSION_SECRET || '3456789_sdfghjk', // Added fallback
+    secret: process.env.SESSION_SECRET || '3456789_sdfghjk',
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGOURL  
+      }), 
     cookie: {
-            maxAge:  24*60*60*1000, // 24 hours in milliseconds
-        secure: false,  // Set to true if you're using HTTPS
+            maxAge:  24*60*60*1000, 
+        secure: false,  
     },
 })
 );

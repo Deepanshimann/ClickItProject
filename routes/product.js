@@ -119,20 +119,21 @@ router.post("/delete",validateAdmin, async function(req,res){
 
 
  router.get("/search", async function (req, res) {
-  const query = req.query.q; // Get the search term from the query string
+  const query = req.query.q; 
   try {
-    // Find products that match the search query (name or description)
+    // Find products that match the search query 
     let searchResults = await productModel.find({
       $or: [
         { name: { $regex: query, $options: "i" } }, // Case-insensitive search
         { description: { $regex: query, $options: "i" } },
+        { category: { $regex: query, $options: "i" } }, // Search by category name
       ],
     });
 
-    // If you want to fetch random products for suggestions on the search page
+    // fetch random products for suggestions on the search page
     let rnproducts = await productModel.aggregate([{ $sample: { size: 8 } }]);
- // Check if the user is logged in (adjust this according to your session logic)
- let userLoggedIn = !!req.session.passport; // Adjust if using a different session structure
+ 
+ let userLoggedIn = !!req.session.passport; 
 
     let cart = await cartModel.findOne({ user: req.session.passport ? req.session.passport.user : null });
     let cartCount = cart ? cart.products.length : 0;
@@ -144,7 +145,7 @@ router.post("/delete",validateAdmin, async function(req,res){
          rnproducts,
           searchTerm: query ,
           cartCount,
-          userLoggedIn // Pass the flag to the view  
+          userLoggedIn 
         });
   } catch (error) {
     console.error("Error during search:", error);

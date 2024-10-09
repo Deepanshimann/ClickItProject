@@ -89,7 +89,7 @@ router.get("/products",validateAdmin,async function(req,res){
       console.log(resultObject); 
       
       if (Object.keys(resultObject).length === 0) {
-        res.send("No products available");  // Simple error handling if no products
+        res.send("No products available");  
     } else {
         res.render("admin_products", { products: resultObject });
     }

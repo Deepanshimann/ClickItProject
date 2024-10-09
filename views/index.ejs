@@ -3,7 +3,6 @@
 
 <style>
    
-
     /* Styling for products */
     .product-card {
         display: flex;
@@ -52,6 +51,59 @@
         border-radius: 4px;
         cursor: pointer;
         margin-top: 12px;
+    }
+
+  /* Media query for tablets and smaller screens */
+  @media (max-width: 1031px) {
+        .grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* Media query for mobile screens */
+    @media (max-width: 600px) {
+        .grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .product-card {
+            padding: 0.75rem;
+        }
+
+        .product-card img {
+            height: 6.4rem; 
+        }
+
+        .product-card .product-name {
+            font-size: 1rem; 
+        }
+
+        .product-card .add-to-cart-btn {
+            padding: 4px 8px; 
+        }
+        .cart-notification{
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .cart-footer {
+            padding: 8px;
+        }
+
+        .cart-footer .cart-count {
+            font-size: 1rem;
+        }
+
+        .cart-footer .next-button {
+            padding: 8px 16px;
+        }
+    }
+      /* Media query for very small screens */
+      @media (max-width: 360px) {
+        .grid {
+            grid-template-columns: 1fr; 
+        }
     }
 </style>
 
@@ -117,14 +169,14 @@
             <div id="cart-count" class="text-xl font-bold">
             Check Your Cart
             </div>
-            <a href="/cart" class="flex items-center justify-center px-20 py-3 bg-green-700 text-white rounded-lg">
+            <a href="/cart" class="next-btn flex items-center justify-center px-20 py-3 bg-green-700 text-white rounded-lg">
               <span class="text-lg">Next</span><i class="text-2xl ri-arrow-right-s-fill"></i></a>
           </div>
         </div>
         <% } %>
 
         <!-- Cart notification (hidden by default) -->
-        <div id="cart-notification" style="display: none;" class="fixed bottom-4 text-2xl font-bold left-1/2 transform -translate-x-1/2 bg-yellow-500 text-white p-4 z-100 rounded">
+        <div id="cart-notification" style="display: none;" class="fixed bottom-4 text-2xl font-bold left-1/2 transform -translate-x-1/2 bg-yellow-500 text-white p-4 z-1000 rounded">
             Item added to the cart! <i class="ri-shopping-basket-line"></i>
         </div>
 

@@ -32,13 +32,23 @@
     body {
         padding-bottom: 120px;
     }
+      /* Responsive design: Adjust for mobile screens */
+  @media (max-width: 600px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+    }
+    .product-card img {
+        height: 7.5rem;
+        width: auto;
+    }
+  }
 </style>
 
 
     <body class="bg-gray-100 font-sans">
-        <div class="max-w-screen-md mx-auto py-24 p-4">
+        <div class="max-w-screen-md mx-auto pt-28 p-4">
             <!-- Header -->
-            <div class="flex justify-between items-center py-4">
+            <div class=" flex justify-between items-center py-4">
                 <button id="back-btn" class="text-lg"><i class="ri-arrow-left-s-line" ></i>Back</button>
                 <h1 class="text-xl font-semibold">Checkout</h1>
                 <button class="text-lg">Share</button>

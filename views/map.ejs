@@ -15,14 +15,14 @@ body {
     padding-top: 70px; /* Adjust this value based on the height of your nav */
 }
 
-nav {
+/* nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999; /* Ensure the nav bar is above other elements */
-    background-color: #fff; /* Ensure the background color is set for the navbar */
-}
+    z-index: 999; /* Ensure the nav bar is above other elements 
+    background-color: #fff;  Ensure the background color is set for the navbar 
+} */
 
         #map {
             height: 500px;
@@ -30,7 +30,8 @@ nav {
         }
 
         #inputs {
-            margin: 20px 0;
+            margin: 20px 10px;
+           
         }
 
         .autocomplete-suggestions {
@@ -51,6 +52,16 @@ nav {
 
         .leaflet-top+.leaflet-right {
             display: none;
+        }
+        @media (max-width: 705px) {
+            #inputs {
+           padding-top: 40px;
+        }
+        }
+        @media (max-width: 350px) {
+            #inputs {
+           padding-top: 95px;
+        }
         }
     </style>
 </head>

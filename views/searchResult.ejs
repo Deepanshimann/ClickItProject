@@ -38,12 +38,15 @@
     .grid {
       grid-template-columns: 1fr; /* 1 column layout */
     }
+.search-div{
+  padding-top: 8rem;
+}
   }
 </style>
 
 
-<div class=" p-4">
-  <h1 class="text-2xl font-semibold pt-28  mb-4">Search Results for "<%= searchTerm %>"</h1>
+<div class="search-div p-4">
+  <h1 class=" text-2xl font-semibold pt-28  mb-4">Search Results for "<%= searchTerm %>"</h1>
   <% if (searchResults.length > 0) { %>
     <div class="grid grid-cols-5 gap-4 p-6">
       <% searchResults.forEach(function(product) { %>
